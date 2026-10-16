@@ -2,11 +2,17 @@ import env from "@/app/env";
 
 import {Avatars, Client, Databases, Storage, Users} from "node-appwrite";
 
-let client = new sdk.Client();
+let client = new Client();
 
 client
-    .setEndpoint('https://[HOSTNAME_OR_IP]/v1') // Your API Endpoint
-    .setProject('5df5acd0d48c2') // Your project ID
-    .setKey('919c2d18fb5d4...a2ae413da83346ad2') // Your secret API key
-    .setSelfSigned() // Use only on dev mode with a self-signed SSL cert
-;
+    .setEndpoint(env.appwrite.endpoint) // Your API Endpoint
+    .setProject(env.appwrite.projectId) // Your project ID
+    .setKey(env.appwrite.apikey) // Your secret API key
+    
+
+const databases = new Databases(client);
+const avatars = new Avatars(client);
+const storage = new Storage(client);
+const users = new Users(client);
+
+export {client, databases, avatars, storage, Users};
